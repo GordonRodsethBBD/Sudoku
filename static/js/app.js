@@ -228,7 +228,7 @@ const saveGameInfo = () => {
 
 const removeGameInfo = () => {
     localStorage.removeItem('game');
-    document.querySelector('#btn-continue').style.display = 'none';
+    document.querySelector('#btn-continue').style.opacity = '40%';
 }
 
 const isGameWin = () => sudokuCheck(su_answer);
@@ -387,7 +387,7 @@ const init = () => {
 
     const game = getGameInfo();
 
-    document.querySelector('#btn-continue').style.display = game ? 'grid' : 'none';
+    document.querySelector('#btn-continue').style.opacity = game ? 'grid' : '40%';
 
     initGameGrid();
     initCellsEvent();

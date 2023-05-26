@@ -1,0 +1,28 @@
+body {
+  background-color: black;
+  color: white;
+}
+
+h1 {
+  text-align: center;
+}
+
+h2 {
+  margin-top: 30px;
+}
+
+#easy-leaderboard,
+#intermediate-leaderboard,
+#expert-leaderboard {
+  margin: 20px auto;
+  width: 300px;
+}
+
+#easy-leaderboard div,
+#intermediate-leaderboard div,
+#expert-leaderboard div {
+padding: 5px;
+border-bottom: 1px solid white;
+}
+
+

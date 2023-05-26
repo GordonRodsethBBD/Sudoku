@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- mobile status bar color -->
+    <meta name="theme-color" content="#fff">
+    <title>Sudoku</title>
+    <link rel="shortcut icon" href="./static/images/icon.png" type="image/x-icon">
+    <!-- google font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- box icons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+    <!-- app css -->
+    <link rel="stylesheet" href="./app.css">
+    <!--Leaderboard-->
+    <script src="static/js/script.js"></script>
+
+</head>
+
+<body>
+
+    <!-- main -->
+    <div class="main">
+        <section class="screen">
+            <!-- start screen -->
+            <ul class="start-screen active" id="start-screen">
+                <li class="start-screen-item">
+                    <label>Player Name:</label>
+                    <input type="text" placeholder="Your name" maxlength="11" class="input-name" id="input-name">
+                </li>
+                
+                <li class="start-screen-item">
+                    <label>Difficulty:</label>
+                    <button  type="button" class="btn" id="btn-level">
+                        Easy
+                    </button>
+                </li>
+
+                <li class="start-screen-item start-screen-buttons">
+                    <button type="button" class="btn" id="btn-continue">Continue</button>
+                    <button  type="button" class="btn" id="btn-play">New game</button>
+                </li>
+                
+            </ul>
+            <!-- end start screen -->
+
+            <!-- game screen -->
+
+            <section class="main-game" id="game-screen">
+                <ul class="main-game-info">
+                    <li class="main-game-info-box main-game-info-name">
+                        <label>Player Name:</label>
+                        <p id="player-name">tuat</p>
+                    </li>
+                    <li class="main-game-info-box main-game-info-level">
+                        <label>Difficulty:</label>
+                        <p id="game-level">Easy</p>
+                    </li>
+                </ul>
+                
+                <table class="main-sudoku-grid">
+                    <tr id="row1">
+                        <td class="main-grid-cell" id="col1"></td>
+                        <td class="main-grid-cell" id="col2"></td>
+                        <td class="main-grid-cell" id="col3"></td>
+    
+                        <td class="main-grid-cell" id="col4"></td>
+                        <td class="main-grid-cell" id="col5"></td>
+                        <td class="main-grid-cell" id="col6"></td>
+    
+                        <td class="main-grid-cell" id="col7"></td>
+                        <td class="main-grid-cell" id="col8"></td>
+                        <td class="main-grid-cell" id="col9"></td>
+                    </tr>
+                    <tr id="row2">
+                        <td class="main-grid-cell" id="col1"></td>
+                        <td class="main-grid-cell" id="col2"></td>
+                        <td class="main-grid-cell" id="col3"></td>
+    
+                        <td class="main-grid-cell" id="col4"></td>
+                        <td class="main-grid-cell" id="col5"></td>
+                        <td class="main-grid-cell" id="col6"></td>
+    
+                        <td class="main-grid-cell" id="col7"></td>
+                        <td class="main-grid-cell" id="col8"></td>
+                        <td class="main-grid-cell" id="col9"></td>
+                    </tr>
+                    <tr id="row3">
+                        <td class="main-grid-cell" id="col1"></td>
+                        <td class="main-grid-cell" id="col2"></td>
+                        <td class="main-grid-cell" id="col3"></td>
+    
+                        <td class="main-grid-cell" id="col4"></td>
+                        <td class="main-grid-cell" id="col5"></td>
+                        <td class="main-grid-cell" id="col6"></td>
+    
+                        <td class="main-grid-cell" id="col7"></td>
+                        <td class="main-grid-cell" id="col8"></td>
+                        <td class="main-grid-cell" id="col9"></td>
+                    </tr>
+    
+                    <tr id="row4">
+                        <td class="main-grid-cell" id="col1"></td>
+                        <td class="main-grid-cell" id="col2"></td>
+                        <td class="main-grid-cell" id="col3"></td>
+    
+                        <td class="main-grid-cell" id="col4"></td>
+                        <td class="main-grid-cell" id="col5"></td>
+                        <td class="main-grid-cell" id="col6"></td>
+    
+                        <td class="main-grid-cell" id="col7"></td>
+                        <td class="main-grid-cell" id="col8"></td>
+                        <td class="main-grid-cell" id="col9"></td>
+                    </tr>
+                    <tr id="row5">
+                        <td class="main-grid-cell" id="col1"></td>
+                        <td class="main-grid-cell" id="col2"></td>
+                        <td class="main-grid-cell" id="col3"></td>
+    
+                        <td class="main-grid-cell" id="col4"></td>
+                        <td class="main-grid-cell" id="col5"></td>
+                        <td class="main-grid-cell" id="col6"></td>
+    
+                        <td class="main-grid-cell" id="col7"></td>
+                        <td class="main-grid-cell" id="col8"></td>
+                        <td class="main-grid-cell" id="col9"></td>
+                    </tr>
+                    <tr id="row6">
+                        <td class="main-grid-cell" id="col1"></td>
+                        <td class="main-grid-cell" id="col2"></td>
+                        <td class="main-grid-cell" id="col3"></td>
+    
+                        <td class="main-grid-cell" id="col4"></td>
+                        <td class="main-grid-cell" id="col5"></td>
+                        <td class="main-grid-cell" id="col6"></td>
+    
+                        <td class="main-grid-cell" id="col7"></td>
+                        <td class="main-grid-cell" id="col8"></td>
+                        <td class="main-grid-cell" id="col9"></td>
+                    </tr>
+    
+                    <tr id="row7">
+                        <td class="main-grid-cell" id="col1"></td>
+                        <td class="main-grid-cell" id="col2"></td>
+                        <td class="main-grid-cell" id="col3"></td>
+    
+                        <td class="main-grid-cell" id="col4"></td>
+                        <td class="main-grid-cell" id="col5"></td>
+                        <td class="main-grid-cell" id="col6"></td>
+    
+                        <td class="main-grid-cell" id="col7"></td>
+                        <td class="main-grid-cell" id="col8"></td>
+                        <td class="main-grid-cell" id="col9"></td>
+                    </tr>
+                    <tr id="row8">
+                        <td class="main-grid-cell" id="col1"></td>
+                        <td class="main-grid-cell" id="col2"></td>
+                        <td class="main-grid-cell" id="col3"></td>
+    
+                        <td class="main-grid-cell" id="col4"></td>
+                        <td class="main-grid-cell" id="col5"></td>
+                        <td class="main-grid-cell" id="col6"></td>
+    
+                        <td class="main-grid-cell" id="col7"></td>
+                        <td class="main-grid-cell" id="col8"></td>
+                        <td class="main-grid-cell" id="col9"></td>
+                    </tr>
+                    <tr id="row9">
+                        <td class="main-grid-cell" id="col1"></td>
+                        <td class="main-grid-cell" id="col2"></td>
+                        <td class="main-grid-cell" id="col3"></td>
+    
+                        <td class="main-grid-cell" id="col4"></td>
+                        <td class="main-grid-cell" id="col5"></td>
+                        <td class="main-grid-cell" id="col6"></td>
+    
+                        <td class="main-grid-cell" id="col7"></td>
+                        <td class="main-grid-cell" id="col8"></td>
+                        <td class="main-grid-cell" id="col9"></td>
+                    </tr>
+                    
+                </table>
+
+                <article class="main-game-info-box main-game-info-time">
+                    <p id="game-time">10:20</p>
+                    <button  type="button" class="pause-btn" id="btn-pause">
+                        <i class="bx bx-pause"></i>
+                    </button>
+                </article>
+
+                <ol class="numbers">
+                    <li class="number">1</li>
+                    <li class="number">2</li>
+                    <li class="number">3</li>
+                    <li class="number">4</li>
+                    <li class="number">5</li>
+                    <li class="number">6</li>
+                    <li class="number">7</li>
+                    <li class="number">8</li>
+                    <li class="number">9</li>
+                    <li><button  type="button" class="delete" id="btn-delete">X</button>
+                    </li>
+                </ol>
+            </section>
+            <!-- end game screen -->
+
+            <!-- pause screen -->
+            <section class="pause-screen" id="pause-screen">
+                <button  type="button" class="btn" id="btn-resume">Resume</button>
+                <button  type="button" class="btn" id="btn-new-game">New game</button>
+            </section>
+            <!-- end pause screen -->
+
+            <!-- result screen -->
+            <section class="result-screen" id="result-screen">
+                <h1 class="congrate">Completed</h1>
+                <h2 class="info">Time</h2>
+                <p id="result-time"></p>
+                
+                <!-- Leaderboard -->
+                <h2>Leaderboards:</h2>
+
+                <h3>Easy Level</h3>
+                <article id="easy-leaderboard"></article>
+              
+                <h3>Intermediate Level</h3>
+                <article id="intermediate-leaderboard"></article>
+              
+                <h3>Expert Level</h3>
+                <article id="expert-leaderboard"></article>
+
+                <button  type="button" class="btn" id="btn-new-game-2">New game</button>
+            </section>
+            <!-- end result screen -->
+        </section>
+    </div>
+    <!-- end main -->
+
+    <script src="./static/js/constant.js"></script>
+    <script src="./static/js/sudoku.js"></script>
+    <script src="./static/js/app.js"></script>
+</body>
+
+</html>

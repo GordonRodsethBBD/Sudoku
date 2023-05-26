@@ -99,7 +99,7 @@ label{
     overflow: hidden;
     height: 100%;
     width: 30%;
-    min-width: 400px;
+    min-width: 500px;
     background-color: var(--white);
     border-radius: 5px;
     margin-top: 30px;
@@ -416,9 +416,6 @@ border-bottom: 1px solid white;
         border-width: 2px;
     }
 
-    .screen {
-        min-width: unset;
-    }
 
     .main {
         height: 100vh;

@@ -1,6 +1,9 @@
 
 
 // initial value
+var puzzle=[];
+var solution=[];
+var game=[];
 
 // screens
 const start_screen = document.querySelector('#start-screen');
@@ -34,6 +37,16 @@ let selected_cell = -1;
 
 // --------
 
+const getBoard = async() => {
+    const data =(await fetch("https://sudoku-api.vercel.app/api/dosuku"));
+    var puzzlehold= await data.json();
+    puzzle = puzzlehold.newboard.grids[0].value;
+    solution = puzzlehold.newboard.grids[0].solution;
+
+    game = {original:solution,question:puzzle}
+
+}
+
 const getGameInfo = () => JSON.parse(localStorage.getItem('game'));
 
 // add space for each 9 cells
@@ -64,13 +77,17 @@ const clearSudoku = () => {
     }
 }
 
-const initSudoku = () => {
+const initSudoku = async() => {
+
+    await getBoard();
     // clear old sudoku
     clearSudoku();
     resetBg();
     // generate sudoku puzzle here
-    su = sudokuGen(level);
+    su = game;
+    console.log(su)
     su_answer = [...su.question];
+    console.log(su_answer)
 
     seconds = 0;
 

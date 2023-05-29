@@ -1,7 +1,7 @@
 const app = require("./app");
 const port = 8080;
-// const { connectToDatabase } = require("./config/connectDatabase");
-// const { logicPage } = require("./controllers/userController");
+const { connectToDatabase, connection } = require("./controllers/dbController");
+const {tests} = require("./controllers/initDBController");
 const {gamePage, playCallback} = require("./controllers/gameController");
 const {loginPage} = require("./controllers/loginController");
 
@@ -13,14 +13,15 @@ process.on("uncaughtException", (err) => {
   process.exit(1);
 });
 
-// connectToDatabase();
+connectToDatabase();
 
 const server = app.listen(port, () => {
   console.log(`Server started on PORT: 8080 in ${process.env.NODE_ENV} environment`);
 });
 
 app.get('/', loginPage);
-app.get("/game", gamePage);
+// app.get("/game", gamePage);
+app.get("resetDB", tests)
 
 process.on("unhandledRejection", (err) => {
   console.log(`Unhandled Promise Rejection: ${err}`);

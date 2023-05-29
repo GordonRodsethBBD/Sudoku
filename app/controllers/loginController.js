@@ -2,7 +2,8 @@ const Request = require("tedious").Request;
 const {ErrorController, AsyncError} = require("../controllers/ErrorController");
 const bcrypt = require("bcryptjs");
 const path = require("path");
-// const { connection } = require("../config/connectDatabase");
+// const { connection } = require("../controllers/connectDatabase");
+
 
 // endpoint => /register
 const registerPage = (req, res) => {
@@ -15,12 +16,13 @@ const loginPage = (req, res) => {
   console.log("Navigating to login")
 };
 
-//endpoint => /auth/login
+//endpoint => /auth/login?email={email}&password={password}
 const loginCallback = AsyncError(async (req, res, next) => {
+  // TODO: params email, password
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return next(new ErrorController("Required fields missing.", 400));
+    return next(new ErrorController("Missing required fields.", 400));
   }
 
   const querySelectUser = `SELECT * FROM users WHERE email = '${email}'`;  // TODO: Add Query Sanitization
@@ -51,14 +53,14 @@ const loginCallback = AsyncError(async (req, res, next) => {
 
     res.status(200).json({
       success: true,
-      message: 'Login Successfully',
-      redirectPath: "/start",
+      message: 'Login Successful',
+      redirectPath: "/game",
     });
 });
 
 
-// endpoint => /auth/register
-// TODO: Add the script for each page here, they'll execute when the user is navigated to to the respective page 
+// endpoint => /auth/register?email={email}&username={username}&password={password}&confirm_password={confirm_password}
+// TODO: Add the script for each page here, they'll execute when the user is navigated to to the respective page
 const registerCallback = async (req, res, next) => {
   const { email, username, password, confirm_password } = req.body;
 
@@ -66,26 +68,19 @@ const registerCallback = async (req, res, next) => {
     return next(new ErrorController("Passwords don't match.", 400));
   }
 
-  const hashedPassword = await bcrypt.hash(password, 10);
-
+  const hashedPassword = await bcrypt.hash(password, 15);
   const queryInsertUser = `INSERT INTO users (username, email, password) VALUES ( '${username}', '${email}', '${hashedPassword}')`;
 
-  let requestInsertUser = new Request(queryInsertUser, function (err, rowCount, rows) {
-    if (err) {
-      return next(new ErrorController());
-    }
+  
 
-    if (rowCount === 0 || rowCount === undefined) {
-      return next(new ErrorController("Incorrect Details Supplied", 401));
-    }
+  let requestInsertUser = new Request(queryInsertUser, function (err, rowCount, rows) {
+    if (err) return next(new ErrorController());
+    if (rowCount === 0 || rowCount === undefined) return next(new ErrorController("Incorrect Details Supplied", 401));
   });
 
   connection.execSql(
     requestInsertUser.on("doneInProc", async function (rowCount, more, rows) {
-      //TODO: Figure out how to catch duplicate error problem
-      if (rowCount === 0 || rowCount === undefined) {
-        return next(new ErrorController("Incorrect Details Supplied", 401));
-      }
+      if (rowCount === 0 || rowCount === undefined) return next(new ErrorController("Incorrect Details Supplied", 401));
     })
   );
 

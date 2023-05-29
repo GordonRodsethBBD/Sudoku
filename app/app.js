@@ -22,7 +22,7 @@ app.use(session({
     resave: false
 }));
 app.use(cookieParser())
-
+app.use(express.static("app/static"))
 
 const gamePage = require("./routes/authRoute");
 const errorPage = require("./routes/gameRoute");

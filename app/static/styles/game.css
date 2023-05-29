@@ -49,7 +49,7 @@ body {
     background-color: var(--bg-body);
     overflow-x: hidden;
     user-select: none;
-    background-image:url(static/images/bg.png) ;
+    background-image:url(/images/bg.png) ;
 }
 
 input {

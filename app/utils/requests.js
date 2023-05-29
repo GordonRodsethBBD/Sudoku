@@ -619,7 +619,7 @@ function tests() {
     GameFetchAll()
 };
 
-tests();
+// tests();
 
 module.exports = {
 connectToDatabase,

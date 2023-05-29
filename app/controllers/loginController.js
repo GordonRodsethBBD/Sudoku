@@ -2,12 +2,13 @@ const Request = require("tedious").Request;
 const {ErrorController, AsyncError} = require("../controllers/ErrorController");
 const bcrypt = require("bcryptjs");
 const path = require("path");
-// const { connection } = require("../controllers/connectDatabase");
+const { connection } = require("../controllers/dbController");
 
 
 // endpoint => /register
 const registerPage = (req, res) => {
   res.sendFile("register.html", { root: path.join(__dirname, "../pages/register") });
+  console.log("Navigating to register page...");
 };
 
 // endpoint => /login
@@ -26,6 +27,7 @@ const loginCallback = AsyncError(async (req, res, next) => {
   }
 
   const querySelectUser = `SELECT * FROM users WHERE email = '${email}'`;  // TODO: Add Query Sanitization
+
 
   const requestAllUsers = new Request( querySelectUser,
     (err, rowCount, rows) => {

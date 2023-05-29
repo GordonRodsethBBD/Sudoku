@@ -7,8 +7,11 @@ const setNoSniffHeader = require('./middleware/expressAddons');
 const mime = require('mime');
 
 
-const errorController = require('./controllers/ErrorController');
-const { loginView } = require('./controllers/loginController');
+const authRoutes = require("./routes/authRoute");
+const gameRoutes = require("./routes/gameRoute");
+
+const { ErrorController, AsyncError } = require('./controllers/ErrorController');
+
 
 app.use(express.static("static"));
 app.use(setNoSniffHeader)
@@ -22,13 +25,14 @@ app.use(session({
     resave: false
 }));
 app.use(cookieParser())
+app.use(express.static("app/static"))
 
 
-const gamePage = require("./routes/authRoute");
-const errorPage = require("./routes/gameRoute");
 
-app.use("/", gamePage);
+app.use("/", authRoutes);
+app.use("/", gameRoutes);
 
-app.use("/error", errorPage);
+
+// app.use(ErrorController);
 
 module.exports = app;

@@ -7,17 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#fff">
     <title>Login</title>
-    <link rel="shortcut icon" href="./static/images/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/icon.png" type="image/x-icon">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <!-- box icons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet' type="text/css">
     <!-- Global css -->
-    <link href="../../static/styles/style.css" rel="stylesheet" type="text/javascript">
-    <script src="../../static/scripts/constant.js" type="text/css"   ></script>
-    <script src="../../static/scripts/sudoku.js" type="text/css"   ></script>
-    <script src="../../static/scripts/app.js" type="text/css"   ></script>
+    <!-- <link href="/styles/auth.css" rel="stylesheet" type="text/stylesheet"> -->
+    
+    <link rel="stylesheet" href="/styles/auth.css">
 
 </head>
 
@@ -26,23 +25,23 @@
     <!-- main -->
     <div class="main">
         <section class="screen">
-            <!-- start screen -->
+            <!-- convert to Form  -->
             <ul class="start-screen active" id="start-screen">
                 <li class="start-screen-item">
                     <label>Username:</label>
-                    <input type="text" placeholder="Your name" maxlength="11" class="input-name" id="input-name">
+                    <input type="text" placeholder="Enter your username" maxlength="100" class="input-name" id="input-name">
                 </li>
 
                 <li class="start-screen-item">
                     <label>Password:</label>
-                    <input type="text" placeholder="Your name" maxlength="11" class="input-name" id="input-name">
+                    <input type="text" placeholder="Enter your password" maxlength="150" class="input-name" id="input-password">
                 </li>
 
                 <li class="start-screen-item start-screen-buttons">
                     <button type="button" class="btn" id="btn-continue">Login</button>
                     <button  type="button" class="btn" id="btn-play">Not a user? Register</button>
                 </li>
-                
+
             </ul>
             <!-- end start screen -->
         </section>

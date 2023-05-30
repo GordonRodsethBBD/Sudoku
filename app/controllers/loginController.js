@@ -2,7 +2,7 @@ const Request = require("tedious").Request;
 const {ErrorController, AsyncError} = require("../controllers/ErrorController");
 const bcrypt = require("bcryptjs");
 const path = require("path");
-const { connection } = require("../controllers/dbController");
+const { connection } = require("../services/dbConnection");
 
 
 // endpoint => /register

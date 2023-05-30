@@ -1,7 +1,7 @@
 const app = require("./app");
 const port = 8080;
 
-const { connectToDatabase, connection } = require("./controllers/dbController");
+const { connectToDatabase, connection } = require("./services/dbConnection");
 
 // const {tests} = require("./controllers/initDBController");
 

@@ -25,29 +25,6 @@ const connectToDatabase = () => {
 }
 
 
-function getLeaderboardData(difficulty) {
-    connection.on('connect', (err) => {
-        if (err) {
-          console.error(err.message);
-        } else {
-
-          const query = `SELECT * FROM tblLeaderboard WHERE difficulty = '${difficulty}' ORDER BY time ASC LIMIT 10`;
-
-          const request = new Request(query, (error, rowCount, rows) => {
-            if (error) {
-              console.error(error.message);
-            } else {
-              console.log(`${rowCount} row(s) returned`);
-              console.log(rows);
-            }
-          });
-
-          connection.execSql(request);
-        }
-      });
-}
-
-
 function addUser(username, email) {
 
     connection.on('connect', (error) => {
@@ -445,7 +422,6 @@ return new Promise((resolve, reject) => {
             else resolve(rowCount);
         }
     );
-
     request.addParameter('username', TYPES.VarChar, username);
     request.addParameter('difficulty', TYPES.VarChar, difficulty);
     request.addParameter('time', TYPES.BigInt, time);
@@ -456,7 +432,6 @@ return new Promise((resolve, reject) => {
 
 
 module.exports = {
-getLeaderboardData,
 addUser,
 addGame,
 updateLeaderboard,

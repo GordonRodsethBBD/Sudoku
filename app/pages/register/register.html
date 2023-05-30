@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -25,27 +25,27 @@
             <form class="start-screen active" id="start-screen" action="/register" method="post">
                 <div class="start-screen-item">
                     <label for="input-name">Username:</label>
-                    <input type="text" name="username" placeholder="Enter a username" maxlength="100" class="input-name" id="input-name">
+                    <input type="text" name="username" placeholder="Enter a username" maxlength="100" class="input-name" id="input-name" required>
                 </div>
 
                 <div class="start-screen-item">
                     <label for="input-email">Email:</label>
-                    <input type="email" name="email" placeholder="Your email address" maxlength="150" class="input-name" id="input-email">
+                    <input type="email" name="email" placeholder="Your email address" maxlength="150" class="input-name" id="input-email" required>
                 </div>
 
                 <div class="start-screen-item">
                     <label for="input-password">Password:</label>
-                    <input type="text" name="password" placeholder="Your name" maxlength="100" class="input-name" id="input-password">
+                    <input type="text" name="password" placeholder="Your name" maxlength="100" class="input-name" id="input-password" required>
                 </div>
 
                 <div class="start-screen-item">
                     <label for="confirm-password">Confirm Password:</label>
-                    <input type="text" name="password_confirm" placeholder="Your name" maxlength="100" class="input-name" id="input-confirm-password">
+                    <input type="text" name="password_confirm" placeholder="Your name" maxlength="100" class="input-name" id="input-confirm-password" required>
                 </div>
 
                 <div class="start-screen-item start-screen-buttons">
                     <button type="submit" class="btn" id="btn-registerCall">Register</button>
-                    <button  type="button" onclick="loginRedirect()" class="btn" id="btn-loginRedirect">Have an account? Login</button>
+                    <button  href="/login" class="btn" id="btn-loginRedirect">Have an account? Login</button>
                 </div>
 
             </form>

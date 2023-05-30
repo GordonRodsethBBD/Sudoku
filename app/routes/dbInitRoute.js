@@ -8,7 +8,7 @@ const {
     getTables
 } = require('../controllers/initDBController');
 
-router.post('/populate', populateTables);
+router.get('/populate', populateTables);
 router.get('/getTables', getTables);
 router.get('/dropTables', dropTables);
 router.get('/createTables', createTables);

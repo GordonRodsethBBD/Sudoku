@@ -11,6 +11,8 @@ const registerPage = (req, res) => {
   console.log("Navigating to register page...");
 };
 
+
+
 // endpoint => /login
 const loginPage = (req, res) => {
   res.sendFile("login.html", { root: path.join(__dirname, "../pages/login") });
@@ -24,22 +26,21 @@ const loginCallback = AsyncError(async (req, res, next) => {
   console.log("Login Callback Initiated - request.body =", req.body);
   const { email, password } = req.body;
 
-  if (!email || !password) {
-    return next(new ErrorController("Missing required fields.", 400));
-  }
+  if (!email || !password) return next(new ErrorController("Missing required fields.", 400));
 
   const querySelectUser = `SELECT * FROM tblUsers WHERE email = '${email}'`;  // TODO: Add Query Sanitization
 
 
-  const requestAllUsers = new Request( querySelectUser,
+  const requestAllUsers = new Request(
+    querySelectUser,
     (err, rowCount, rows) => {
       if (err) return next(new ErrorController(err, 500));
-      if (rowCount === 0) return next(new ErrorController("Invalid Credentails.", 401));
+      if (rowCount == 0) return next(loginPage);
     }
   );
 
   connection.execSql(
-    requestAllUsers.on("doneInProc", async function (rowCount, more, rows) {
+    requestAllUsers.on("doneInProc", async  (rowCount, more, rows) => {
         console.log(querySelectUser, ": \n",rows);
         if (rowCount >= 1) {
             const isPasswordMatched = await bcrypt.compare(
@@ -53,38 +54,36 @@ const loginCallback = AsyncError(async (req, res, next) => {
     }));
 
     session = req.session;
-    session.email = email
+    session.email = email;
 
+    res.sendFile("register.html", { root: path.join(__dirname, "../pages/register") });
     res.status(200).json({
       success: true,
       message: 'Login Successful',
-      redirectPath: "/game",
     });
+
 });
 
 
 // endpoint => /auth/register?email={email}&username={username}&password={password}&confirm_password={confirm_password}
-// TODO: Add the script for each page here, they'll execute when the user is navigated to to the respective page
 const registerCallback = async (req, res, next) => {
-  const { email, username, password, confirm_password } = req.body;
+  const { name, email, password, password_confirm } = req.body;
 
-  if (password != confirm_password) {
-    return next(new ErrorController("Passwords don't match.", 400));
-  }
+  if (password != password_confirm) return next(new ErrorController("Please confirm your password.", 400));
 
-  const hashedPassword = await bcrypt.hash(password, 15);
-  const queryInsertUser = `INSERT INTO users (username, email, password) VALUES ( '${username}', '${email}', '${hashedPassword}')`;
+  // const email_hash = await bcrypt.hash(email, 15);
+  const password_hash = await bcrypt.hash(password, 15);
+  const queryInsertUser = `INSERT INTO tblUsers (username, email, password) VALUES ( '${username}', '${email}', '${password_hash}')`;
 
-  
 
-  let requestInsertUser = new Request(queryInsertUser, function (err, rowCount, rows) {
+  let requestInsertUser = new Request(queryInsertUser,  (err, rowCount, rows) => {
     if (err) return next(new ErrorController(err, 500));
-    if (rowCount === 0 || rowCount === undefined) return next(new ErrorController("Incorrect Details Supplied", 401));
+    if (rowCount == 0) return next(new ErrorController());
   });
 
   connection.execSql(
-    requestInsertUser.on("doneInProc", async function (rowCount, more, rows) {
-      if (rowCount === 0 || rowCount === undefined) return next(new ErrorController("Incorrect Details Supplied", 401));
+    requestInsertUser.on("doneInProc", async  (rowCount, more, rows) => {
+      if (rowCount == 0 ) return next(new ErrorController());
     })
   );
 

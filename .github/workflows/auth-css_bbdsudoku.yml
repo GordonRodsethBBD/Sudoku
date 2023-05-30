@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'BBDSudoku'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_6A5562B484FB433192A272317ABEBB9A }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A4D7EF35A819453AA0DCEC947E9B1CD6 }}
           package: .

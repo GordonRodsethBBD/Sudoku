@@ -11,6 +11,8 @@ const upload = multer();
 
 const authRoutes = require("./routes/authRoute");
 const gameRoutes = require("./routes/gameRoute");
+const dbInitRoutes = require("./routes/dbInitRoute");
+const dbRoutes = require("./routes/dbRoute");
 
 const { ErrorController, AsyncError } = require('./controllers/ErrorController');
 
@@ -29,13 +31,14 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.use(cookieParser())
-app.use(express.static("app/static"))
+app.use(express.static('app/static'))
 
 
 
-app.use("/", authRoutes);
-app.use("/game", gameRoutes);
-
+app.use('/', authRoutes);
+app.use('/game', gameRoutes);
+app.use('/db', dbRoutes);
+app.use('/dbInit', dbInitRoutes);
 
 // app.use(ErrorController);
 

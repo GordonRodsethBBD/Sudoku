@@ -1,6 +1,5 @@
 const { Connection, Request, TYPES } = require('tedious');
 
-
 const config = {
     server: 'sudoku-game.database.windows.net',
     authentication: {
@@ -17,8 +16,8 @@ const config = {
     },
 };
 
-
 const connection = new Connection(config);
+
 
 const connectToDatabase = () => {
     connection.on('connect', (err) => err ? console.log('Error: ', err) : console.log('Connected to the Database') );
@@ -26,8 +25,6 @@ const connectToDatabase = () => {
 }
 
 
-
-// Function to get leaderboard data for a specific difficulty
 function getLeaderboardData(difficulty) {
     connection.on('connect', (err) => {
         if (err) {
@@ -51,54 +48,6 @@ function getLeaderboardData(difficulty) {
 }
 
 
-// Function to write data to the leaderboard
-function insertIntoLeaderboard(gameID, difficulty, time) {
-
-
-    // Event handler for the connection 'connect' event
-    connection.on('connect', (error) => {
-      if (error) {
-        console.error('Error connecting to the database:', error.message);
-        return;
-      }
-
-      console.log('Connected to the database.');
-
-      // Create the INSERT statement
-      const insertQuery = "INSERT INTO tblLeaderboard (GameID, difficulty, time) VALUES (@gameID, @difficulty, @time)";
-
-      // Create a new Request object
-      const request = new Request(insertQuery, (err, rowCount) => {
-        if (err) {
-          console.error('Error executing the query:', err.message);
-        } else {
-          console.log(`Inserted ${rowCount} row(s) into tblLeaderboard`);
-        }
-
-        // Close the connection
-        connection.close();
-      });
-
-      // Bind parameter values to the placeholders
-      request.addParameter('gameID', TYPES.Int, gameID);
-      request.addParameter('difficulty', TYPES.NVarChar, difficulty);
-      request.addParameter('time', TYPES.Int, time);
-
-      // Execute the query
-      connection.execSql(request);
-    });
-
-    // Event handler for the connection 'error' event
-    connection.on('error', (err) => {
-      console.error('Database connection error:', err.message);
-    });
-
-    // Start the connection
-    connection.connect();
-  }
-
-
-  // Function to add a new user to tblUser
 function addUser(username, email) {
 
     connection.on('connect', (error) => {
@@ -234,20 +183,16 @@ connection.connect();
 }
 
 
-function LeaderboardFetch () {
+function getLeaderboard () {
 return new Promise((resolve, reject) => {
     const leaderboardData = [];
 
     connection.on('connect', (err) => {
-    if (err) {
-        reject(err);
-    } else {
+    if (err) reject(err);
+    else {
         const request = new Request('SELECT * FROM tblLeaderboard', (err, rowCount) => {
-        if (err) {
-            reject(err);
-        } else {
-            resolve(leaderboardData);
-        }
+            if (err) reject(err);
+            else resolve(leaderboardData);
         });
 
         request.on('row', (columns) => {
@@ -273,17 +218,13 @@ function LeaderboardInsert(gameID, difficulty, time) {
 return new Promise(
     function (resolve, reject) {
     connection.on('connect', function (err) {
-    if (err) {
-        reject(err);
-    } else {
+    if (err) reject(err);
+    else {
         var request = new Request(
         `INSERT INTO tblLeaderboard (GameID, Difficulty, Time) VALUES (${gameID}, '${difficulty}', ${time});`,
-        function (err, rowCount) {
-            if (err) {
-            reject(err);
-            } else {
-            resolve(rowCount);
-            }
+        (err, rowCount) => {
+            if (err) reject(err);
+            else resolve(rowCount);
         }
         );
 
@@ -291,25 +232,21 @@ return new Promise(
     }
     });
 
-    connection.on('error', function (err) {
-        reject(err);
-    });
+    connection.on('error', (err) => reject(err));
 });
 }
 
 
-function UserFetchAll() {
-return new Promise( function (resolve, reject) {
-    connection.on('connect', function (err) {
-    if (err) {
-        reject(err);
-    } else {
+function UserGetAll() {
+return new Promise( (resolve, reject) => {
+    connection.on('connect',  (err) => {
+    if (err) reject(err);
+    else {
         var request = new Request(
-        'SELECT * FROM tblUser', function (err, rowCount, rows) {
-            if (err) {
-            reject(err);
-            } else {
-            var users = rows.map( function (rowData) {
+        'SELECT * FROM tblUser',  (err, rowCount, rows) => {
+            if (err) reject(err);
+            else {
+            var users = rows.map( (rowData) => {
                 return {
                 username: rowData[0].value,
                 email_hashed: rowData[1].value
@@ -321,48 +258,38 @@ return new Promise( function (resolve, reject) {
         );
 
         var users = [];
-        request.on('row', function (columns) {
-            users.push(columns);
-        });
+        request.on('row', (columns) => users.push(columns) );
 
-        request.on('done', function () {
-            resolve(users);
-        });
+        request.on( 'done', () => resolve(users));
 
         connection.execSql(request);
     }
     });
 
-    connection.on('error', function (err) {
-        reject(err);
-    });
+    connection.on('error', (err) => reject(err) );
 });
 }
 
 
-function UserFetchSingle(username) {
-return new Promise( function (resolve, reject) {
-    connection.on('connect', function (err) {
+function UserGetSingle(username) {
+return new Promise(  (resolve, reject) => {
+    connection.on('connect',  (err) => {
     if (err) {
         reject(err);
     } else {
         var request = new Request(
-        'SELECT * FROM tblUser WHERE username = @username', function (err, rowCount, rows) {
-            if (err) {
-            reject(err);
-            } else {
-            if (rowCount === 0) {
-                resolve(null); // User not found
-            } else {
-                var user = {
-                username: rows[0][0].value,
-                email_hashed: rows[0][1].value
-                };
-                resolve(user);
-            }
-            }
-        }
-        );
+            'SELECT * FROM tblUser WHERE username = @username',
+            (err, rowCount, rows) => {
+                if (err) reject(err);
+                else if (rowCount === 0) resolve(null);
+                else {
+                    var user = {
+                    username: rows[0][0].value,
+                    email_hashed: rows[0][1].value
+                    };
+                    resolve(user);
+                }
+        });
 
         request.addParameter('username', TYPES.VarChar, username);
 
@@ -370,63 +297,47 @@ return new Promise( function (resolve, reject) {
     }
     });
 
-    connection.on('error',  function (err) {
-    reject(err);
-    });
+    connection.on('error', (err) => reject(err) );
 });
 }
 
 
 function UserUpdate(username, emailHashed) {
-return new Promise( function (resolve, reject) {
-    connection.on('connect',  function (err) {
-    if (err) {
-        reject(err);
-    } else {
-        var request = new Request(
-        'UPDATE tblUser SET email_hashed = @email_hashed WHERE username = @username',
-        function (err, rowCount) {
-            if (err) {
-            reject(err);
-            } else {
-            if (rowCount === 0) {
-                resolve(false); // User not found
-            } else {
-                resolve(true); // User updated successfully
-            }
-            }
+return new Promise( (resolve, reject) => {
+    connection.on('connect',  (err) => {
+        if (err) reject(err);
+        else {
+            var request = new Request(
+                'UPDATE tblUser SET email_hashed = @email_hashed WHERE username = @username',
+                (err, rowCount) => {
+                    if (err) reject(err);
+                    else if (rowCount === 0) resolve(false); // User not found
+                    else resolve(true); // User updated successfully
+            });
+
+            request.addParameter('username', TYPES.VarChar, username);
+            request.addParameter('email_hashed', TYPES.VarChar, emailHashed);
+
+            connection.execSql(request);
         }
-        );
-
-        request.addParameter('username', TYPES.VarChar, username);
-        request.addParameter('email_hashed', TYPES.VarChar, emailHashed);
-
-        connection.execSql(request);
-    }
     });
 
-    connection.on('error', function (err) {
-    reject(err);
-    });
+    connection.on('error', (err) => reject(err) );
 });
 }
 
 
 function UserInsert(username, emailHashed) {
-return new Promise(function (resolve, reject) {
-    connection.on('connect', function (err) {
-    if (err) {
-        reject(err);
-    } else {
+return new Promise( (resolve, reject) => {
+    connection.on('connect',  (err) => {
+    if (err) reject(err);
+    else {
         var request = new Request(
-        'INSERT INTO tblUser (username, email_hashed) VALUES (@username, @email_hashed)',
-         function (err, rowCount) {
-            if (err) {
-            reject(err);
-            } else {
-            resolve(true); // User inserted successfully
+            'INSERT INTO tblUser (username, email_hashed) VALUES (@username, @email_hashed)',
+            (err, rowCount) => {
+                if (err) reject(err);
+                else resolve(true); // User inserted successfully
             }
-        }
         );
 
         request.addParameter('username', TYPES.VarChar, username);
@@ -436,32 +347,28 @@ return new Promise(function (resolve, reject) {
     }
     });
 
-    connection.on('error',  function (err) {
-    reject(err);
-    });
+    connection.on('error',  (err) => reject(err) );
 });
 }
 
 
-function GameFetchAll() {
-return new Promise( function (resolve, reject) {
-    connection.on('connect', function (err) {
-    if (err) {
-        reject(err);
-    } else {
-        var request = new Request('SELECT * FROM tblGame', function (err, rowCount, rows) {
-        if (err) {
-            reject(err);
-        } else {
+function GameGetAll() {
+return new Promise(  (resolve, reject) => {
+    connection.on('connect',  (err) => {
+    if (err) reject(err);
+    else {
+        var request = new Request('SELECT * FROM tblGame',  (err, rowCount, rows) => {
+        if (err) reject(err);
+        else {
             var games = [];
 
-            rows.forEach( function (columns) {
-            var game = {
-                gameID: columns[0].value,
-                username: columns[1].value
-            };
+            rows.forEach(  (columns) => {
+                var game = {
+                    gameID: columns[0].value,
+                    username: columns[1].value
+                };
 
-            games.push(game);
+                games.push(game);
             });
 
             resolve(games);
@@ -472,34 +379,29 @@ return new Promise( function (resolve, reject) {
     }
     });
 
-    connection.on('error',  function (err) {
-    reject(err);
-    });
+    connection.on('error',   (err) => reject(err) );
 });
 }
 
 
-function GameFetchSingle(gameID) {
-return new Promise( function (resolve, reject) {
-    connection.on('connect', function (err) {
-    if (err) {
-        reject(err);
-    } else {
-        var request = new Request('SELECT * FROM tblGame WHERE GameID = @gameID',  function (err, rowCount, rows) {
-        if (err) {
-            reject(err);
-        } else {
-            if (rowCount === 0) {
-            resolve(null); // No game found
-            } else {
-            var columns = rows[0];
+function GameGetSingle(gameID) {
+return new Promise( (resolve, reject) => {
+    connection.on('connect', (err) => {
+    if (err) reject(err);
+    else {
+        var request = new Request('SELECT * FROM tblGame WHERE GameID = @gameID',  (err, rowCount, rows) => {
+        if (err) reject(err);
+        else {
+            if (rowCount === 0) resolve(null); // No game found
+            else {
+                var columns = rows[0];
 
-            var game = {
-                gameID: columns[0].value,
-                username: columns[1].value
-            };
+                var game = {
+                    gameID: columns[0].value,
+                    username: columns[1].value
+                };
 
-            resolve(game);
+                resolve(game);
             }
         }
         });
@@ -510,9 +412,7 @@ return new Promise( function (resolve, reject) {
     }
     });
 
-    connection.on('error',  function (err) {
-    reject(err);
-    });
+    connection.on('error',  (err) => reject(err) );
 });
 }
 
@@ -520,14 +420,11 @@ return new Promise( function (resolve, reject) {
 function gameUpdate(gameID, username, newDifficulty) {
 return new Promise((resolve, reject) => {
     const request = new Request(
-    `UPDATE tblGame SET difficulty = @newDifficulty WHERE gameID = @gameID AND username = @username`,
-    (err, rowCount) => {
-        if (err) {
-        reject(err);
-        } else {
-        resolve(rowCount);
+        `UPDATE tblGame SET difficulty = @newDifficulty WHERE gameID = @gameID AND username = @username`,
+        (err, rowCount) => {
+            if (err) reject(err);
+            else resolve(rowCount);
         }
-    }
     );
 
     request.addParameter('newDifficulty', TYPES.VarChar, newDifficulty);
@@ -544,11 +441,8 @@ return new Promise((resolve, reject) => {
     const request = new Request(
         `INSERT INTO tblGame (username, difficulty, time) VALUES (@username, @difficulty, @time)`,
         (err, rowCount) => {
-            if (err) {
-            reject(err);
-            } else {
-            resolve(rowCount);
-            }
+            if (err) reject(err);
+            else resolve(rowCount);
         }
     );
 
@@ -560,83 +454,19 @@ return new Promise((resolve, reject) => {
 });
 }
 
-
-function createTables(){
-    return new Promise( (resolve, reject) => {
-        const request = new Request(
-            queryCreateTables,
-            (err, rowCount) => {
-                if(err) reject(err);
-                else resolve(rowCount);
-            }
-        );
-
-        connection.execSql(request);
-
-    });
-};
-
-function populateTables(){
-    return new Promise( (resolve, reject) => {
-        const request = new Request(
-            queryPopulateDB,
-            (err, rowCount) => {
-                if(err) reject(err);
-                else resolve(rowCount);
-            }
-        );
-
-        connection.execSql(request);
-
-    });
-};
-
-function dropTables(){
-    return new Promise( (resolve, reject) => {
-        const request = new Request(
-            queryDropTables,
-            (err, rowCount) => {
-                if(err) reject(err);
-                else resolve(rowCount);
-            }
-        );
-
-        connection.execSql(request);
-
-    });
-};
-
-function tests() {
-    try {
-        dropTables();
-    } catch(e) {
-        console.log(e.message);
-    }
-    createTables();
-    populateTables();
-    UserFetchAll();
-    UserFetchSingle('user1');
-    GameFetchAll()
-};
-
-// tests();
-
 module.exports = {
-connectToDatabase,
-connection,
 getLeaderboardData,
-insertIntoLeaderboard,
 addUser,
 addGame,
 updateLeaderboard,
-LeaderboardFetch,
+getLeaderboard,
 LeaderboardInsert,
-UserFetchAll,
-UserFetchSingle,
+UserGetAll,
+UserGetSingle,
 UserUpdate,
 UserInsert,
-GameFetchAll,
-GameFetchSingle,
+GameGetAll,
+GameGetSingle,
 gameUpdate,
 gameInsert
 };

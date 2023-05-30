@@ -20,18 +20,20 @@ const loginPage = (req, res) => {
 //endpoint => /auth/login?email={email}&password={password}
 const loginCallback = AsyncError(async (req, res, next) => {
   // TODO: params email, password
+  console.log("Login Callback Initiated - request.params =", req.params);
+  console.log("Login Callback Initiated - request.body =", req.body);
   const { email, password } = req.body;
 
   if (!email || !password) {
     return next(new ErrorController("Missing required fields.", 400));
   }
 
-  const querySelectUser = `SELECT * FROM users WHERE email = '${email}'`;  // TODO: Add Query Sanitization
+  const querySelectUser = `SELECT * FROM tblUsers WHERE email = '${email}'`;  // TODO: Add Query Sanitization
 
 
   const requestAllUsers = new Request( querySelectUser,
     (err, rowCount, rows) => {
-      if (err) return next(new ErrorController());
+      if (err) return next(new ErrorController(err, 500));
       if (rowCount === 0) return next(new ErrorController("Invalid Credentails.", 401));
     }
   );
@@ -76,7 +78,7 @@ const registerCallback = async (req, res, next) => {
   
 
   let requestInsertUser = new Request(queryInsertUser, function (err, rowCount, rows) {
-    if (err) return next(new ErrorController());
+    if (err) return next(new ErrorController(err, 500));
     if (rowCount === 0 || rowCount === undefined) return next(new ErrorController("Incorrect Details Supplied", 401));
   });
 

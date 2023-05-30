@@ -1,5 +1,5 @@
 const { Connection, Request, TYPES } = require('tedious');
-const {connection, connectToDatabase} = require('./dbController');
+const {connection, connectToDatabase} = require('../services/dbConnection');
 
 
 const queryCreateTables =
@@ -121,6 +121,26 @@ function dropTables(){
     });
 };
 
+
+function getTables() {
+    const queryGetAllTables = `
+    SELECT TABLE_NAME
+    FROM INFORMATION_SCHEMA.TABLES
+    WHERE TABLE_TYPE = 'BASE TABLE';
+    `;
+
+    return new Promise( (resolve, reject) => {
+        const request = new Request(
+            queryGetAllTables,
+            (err, rowCount) => {
+                if(err) reject(err);
+                else resolve(rowCount);
+            }
+        );
+        connection.execSql(request);
+    })
+};
+
 function populate() {
     try {
         dropTables();
@@ -132,6 +152,7 @@ function populate() {
 };
 
 module.exports = {
-    populate
+    populate,
+    getTables
 }
 

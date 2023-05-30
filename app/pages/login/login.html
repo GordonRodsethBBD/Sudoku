@@ -16,7 +16,7 @@
     <!-- Global css -->
     <!-- <link href="/styles/auth.css" rel="stylesheet" type="text/stylesheet"> -->
     
-    <link rel="stylesheet" href="/styles/auth.css">
+    <link rel="stylesheet" href="../../static/styles/game.css">
 
 </head>
 
@@ -26,21 +26,16 @@
     <div class="main">
         <section class="screen">
             <!-- convert to Form  -->
-            <ul class="start-screen active" id="start-screen">
-                <li class="start-screen-item">
-                    <label>Username:</label>
-                    <input type="text" placeholder="Enter your username" maxlength="100" class="input-name" id="input-name">
-                </li>
+            <form class="log-in" id="start-screen">
 
-                <li class="start-screen-item">
-                    <label>Password:</label>
-                    <input type="text" placeholder="Enter your password" maxlength="150" class="input-name" id="input-password">
-                </li>
+                <label for="input-name">Username:</label>
+                <input type="text" placeholder="Enter your username" maxlength="100" class="input-name" id="input-name">
 
-                <li class="start-screen-item start-screen-buttons">
-                    <button type="button" class="btn" id="btn-continue">Login</button>
-                    <button  type="button" class="btn" id="btn-play">Not a user? Register</button>
-                </li>
+                <label for="input-password">Password:</label>
+                <input type="text" placeholder="Enter your password" maxlength="150" class="input-name" id="input-password">
+
+                <button type="button" class="btn login" id="btn-login">Login</button>
+                <button  type="button" class="btn-redirect" id="btn-redirect">Not a user? Register</button>
 
             </ul>
             <!-- end start screen -->

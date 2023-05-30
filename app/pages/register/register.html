@@ -16,7 +16,7 @@
     <!-- box icons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- app css -->
-    <link rel="stylesheet" href="/styles/auth.css">
+    <link rel="stylesheet" href="../../static/styles/game.css">
 
 </head>
 
@@ -26,31 +26,23 @@
     <div class="main">
         <section class="screen">
             <!-- start screen -->
-            <ul class="start-screen active" id="start-screen">
-                <li class="start-screen-item">
-                    <label>Username:</label>
+            <form class="register" id="start-screen">
+
+                    <label for="input-name">Username:</label>
                     <input type="text" placeholder="Enter a username" maxlength="100" class="input-name" id="input-name">
-                </li>
 
-                <li class="start-screen-item">
-                    <label>Email:</label>
+                    <label for="input-email">Email:</label>
                     <input type="text" placeholder="Your email address" maxlength="150" class="input-name" id="input-email">
-                </li>
 
-                <li class="start-screen-item">
-                    <label>Password:</label>
+                    <label for="input-password">Password:</label>
                     <input type="text" placeholder="Your name" maxlength="11" class="input-name" id="input-password">
-                </li>
 
-                <li class="start-screen-item">
-                    <label>Confirm Password:</label>
+                    <label for="input-confirm-password">Confirm Password:</label>
                     <input type="text" placeholder="Your name" maxlength="11" class="input-name" id="input-confirm-password">
-                </li>
 
-                <li class="start-screen-item start-screen-buttons">
                     <button type="button" class="btn" id="btn-continue">Register</button>
-                    <button  type="button" class="btn" id="btn-play">Have an account? Login</button>
-                </li>
+                    <button  type="button" class="btn-redirect" id="btn-play">Have an account? Login</button>
+
 
             </ul>
             <!-- end start screen -->

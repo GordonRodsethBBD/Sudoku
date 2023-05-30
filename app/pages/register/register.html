@@ -25,7 +25,7 @@
             <form class="start-screen active" id="start-screen" action="/register" method="post">
                 <div class="start-screen-item">
                     <label for="input-name">Username:</label>
-                    <input type="text" name="input_name" placeholder="Enter a username" maxlength="100" class="input-name" id="input-name">
+                    <input type="text" name="input_username" placeholder="Enter a username" maxlength="100" class="input-name" id="input-name">
                 </div>
 
                 <div class="start-screen-item">
@@ -35,17 +35,17 @@
 
                 <div class="start-screen-item">
                     <label for="input-password">Password:</label>
-                    <input type="text" name="input_password" placeholder="Your name" maxlength="11" class="input-name" id="input-password">
+                    <input type="text" name="input_password" placeholder="Your name" maxlength="100" class="input-name" id="input-password">
                 </div>
 
                 <div class="start-screen-item">
                     <label for="confirm-password">Confirm Password:</label>
-                    <input type="text" name="input_passwordconfirm" placeholder="Your name" maxlength="11" class="input-name" id="input-confirm-password">
+                    <input type="text" name="input_passwordconfirm" placeholder="Your name" maxlength="100" class="input-name" id="input-confirm-password">
                 </div>
 
                 <div class="start-screen-item start-screen-buttons">
                     <button type="submit" class="btn" id="btn-registerCall">Register</button>
-                    <button  type="button" class="btn" id="btn-loginRedirect">Have an account? Login</button>
+                    <button  type="button" onclick="loginRedirect()" class="btn" id="btn-loginRedirect">Have an account? Login</button>
                 </div>
 
             </form>

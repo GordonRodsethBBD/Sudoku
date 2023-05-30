@@ -11,6 +11,7 @@ const game_screen = document.querySelector('#game-screen');
 const pause_screen = document.querySelector('#pause-screen');
 const result_screen = document.querySelector('#result-screen');
 // ----------
+
 const cells = document.querySelectorAll('.main-grid-cell');
 
 const name_input = document.querySelector('#input-name');
@@ -36,7 +37,7 @@ let su_answer = undefined;
 let selected_cell = -1;
 
 // --------
-
+// TODO Make adjustable for difficulty etc
 const getBoard = async() => {
     const data =(await fetch("https://sudoku-api.vercel.app/api/dosuku"));
     var puzzlehold= await data.json();
@@ -49,7 +50,6 @@ const getBoard = async() => {
 
 const getGameInfo = () => JSON.parse(localStorage.getItem('game'));
 
-// add space for each 9 cells
 const initGameGrid = () => {
     let index = 0;
 
@@ -65,10 +65,13 @@ const initGameGrid = () => {
 // ----------------
 
 const setPlayerName = (name) => localStorage.setItem('player_name', name);
+
+// TODO: This should be an API call from the session info
 const getPlayerName = () => localStorage.getItem('player_name');
 
 const showTime = (seconds) => new Date(seconds * 1000).toISOString().substr(11, 8);
 
+// TODO: This should be an api call as well, cells should derive from API fetches
 const clearSudoku = () => {
     for (let i = 0; i < Math.pow(CONSTANT.GRID_SIZE, 2); i++) {
         cells[i].innerHTML = '';
@@ -230,6 +233,7 @@ const checkErr = (value) => {
 
 const removeErr = () => cells.forEach(e => e.classList.remove('err'));
 
+// TODO: Should be a PUT API call (level, duration, gameInfo)
 const saveGameInfo = () => {
     let game = {
         level: level_index,

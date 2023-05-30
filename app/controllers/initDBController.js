@@ -1,20 +1,5 @@
 const { Connection, Request, TYPES } = require('tedious');
 const {connection, connectToDatabase} = require('./dbController');
-const config = {
-    server: 'sudoku-game.database.windows.net',
-    authentication: {
-        type: 'default',
-        options: {
-            userName: 'SudokuGame',
-            password: 'BlackScreen#123',
-        },
-    },
-    options: {
-        database: 'SudokuGame',
-        encrypt: true,
-        port: 1433,
-    },
-};
 
 
 const queryCreateTables = `CREATE TABLE tblGame (

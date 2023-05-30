@@ -5,7 +5,9 @@ const cookieParser = require("cookie-parser");
 const session = require('express-session');
 const setNoSniffHeader = require('./middleware/expressAddons');
 const mime = require('mime');
-
+const bodyParser = require('body-parser');
+const multer = require('multer');
+const upload = multer();
 
 const authRoutes = require("./routes/authRoute");
 const gameRoutes = require("./routes/gameRoute");
@@ -19,18 +21,20 @@ app.use(morgan('tiny'));
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
 app.use(session({
-    secret: "80000000000000000000085",
+    secret: "424242424242424242424242424242",
     saveUninitialized:true,
     cookie: { maxAge: 259200000 }, // 3 days
     resave: false
 }));
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(express.static("app/static"))
 
 
 
 app.use("/", authRoutes);
-app.use("/", gameRoutes);
+app.use("/game", gameRoutes);
 
 
 // app.use(ErrorController);

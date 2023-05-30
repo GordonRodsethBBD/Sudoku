@@ -27,29 +27,66 @@ const connectToDatabase = () => {
 
 
 
-// Function to get leaderboard data for a specific difficulty
+// Function to fetch leaderboard data from the database
 function getLeaderboardData(difficulty) {
     connection.on('connect', (err) => {
-        if (err) {
-          console.error(err.message);
-        } else {
-
-          const query = `SELECT * FROM tblLeaderboard WHERE difficulty = '${difficulty}' ORDER BY time ASC LIMIT 10`;
-
-          const request = new Request(query, (error, rowCount, rows) => {
-            if (error) {
-              console.error(error.message);
-            } else {
-              console.log(`${rowCount} row(s) returned`);
-              console.log(rows);
-            }
-          });
-
-          connection.execSql(request);
-        }
-      });
-}
-
+      if (err) {
+        console.error(err.message);
+      } else {
+        const query = `SELECT * FROM tblLeaderboard WHERE difficulty = '${difficulty}' ORDER BY time ASC LIMIT 10`;
+  
+        const request = new Request(query, (error, rowCount, rows) => {
+          if (error) {
+            console.error(error.message);
+          } else {
+            console.log(`${rowCount} row(s) returned`);
+            console.log(rows);
+  
+            // Extract the leaderboard data from the rows (assuming the data is in the expected format)
+            const leaderboardData = rows.map(row => ({
+              name: row.name,
+              time: row.time
+            }));
+  
+            // Display the leaderboard on the website
+            displayLeaderboard(difficulty, leaderboardData);
+          }
+        });
+  
+        connection.execSql(request);
+      }
+    });
+  }
+  
+  // Function to convert time from milliseconds to a formatted string
+  function convertTime(time) {
+    const minutes = Math.floor(time / 60000);
+    const seconds = ((time % 60000) / 1000).toFixed(2);
+    return `${minutes}:${seconds.padStart(5, '0')}`;
+  }
+  
+  // Function to display the leaderboard on the website
+  function displayLeaderboard(difficulty, leaderboardData) {
+    const leaderboardSection = document.getElementById(`${difficulty.toLowerCase()}-leaderboard`);
+    let leaderboardHTML = '';
+  
+    leaderboardData.forEach((entry, index) => {
+      const { name, time } = entry;
+      const formattedTime = convertTime(time);
+  
+      leaderboardHTML += `
+        <div class="leaderboard-entry">
+          <span class="rank">${index + 1}</span>
+          <span class="name">${name}</span>
+          <span class="time">${formattedTime}</span>
+        </div>
+      `;
+    });
+  
+    leaderboardSection.innerHTML = leaderboardHTML;
+  }
+  
+  
 
 // Function to write data to the leaderboard
 function insertIntoLeaderboard(gameID, difficulty, time) {
@@ -624,6 +661,8 @@ tests();
 module.exports = {
 connectToDatabase,
 connection,
+displayLeaderboard,
+convertTime,
 getLeaderboardData,
 insertIntoLeaderboard,
 addUser,

@@ -2,14 +2,15 @@ const express = require('express');
 const router = express.Router();
 
 const {
-    populate,
+    populateTables,
+    createTables,
+    dropTables,
     getTables
 } = require('../controllers/initDBController');
 
-router.get('/populate', populate);
-router.get('/tables', getTables)
+router.post('/populate', populateTables);
+router.get('/getTables', getTables);
+router.get('/dropTables', dropTables);
+router.get('/createTables', createTables);
 
-module.exports = (
-    router
-)
-
+module.exports = router;

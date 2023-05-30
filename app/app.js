@@ -38,7 +38,7 @@ app.use(express.static('app/static'))
 app.use('/', authRoutes);
 app.use('/game', gameRoutes);
 app.use('/db', dbRoutes);
-app.use('/dbInit', dbInitRoutes);
+app.use('/admin', dbInitRoutes);
 
 // app.use(ErrorController);
 

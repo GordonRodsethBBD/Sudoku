@@ -30,7 +30,4 @@ router.get( '/singleGame/:ID', GameGetSingle)
 router.put( '/updateGame', gameUpdate)
 router.post('/newGame' , gameInsert)
 
-module.exports = (
-    router
-)
-
+module.exports = router;

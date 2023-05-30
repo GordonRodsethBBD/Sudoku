@@ -6,15 +6,8 @@ const path = require("path");
 
 // endpoint => /game
 const gamePage = (req, res) => {
-    // TODO: Get user information from logged in user
-    // TODO: params, user_id, levels, games,
-    try{
-        res.sendFile("game.html", { root: path.join(__dirname, "../pages/game") });
-        console.log('Navigating to Game View')
-    }
-    catch (e) {
-        console.log(e);
-    }
+    res.sendFile("game.html", { root: path.join(__dirname, "../pages/game") });
+    console.log('Navigating to Game View')
   };
 
 // endpoint => /game/play

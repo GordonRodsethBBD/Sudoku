@@ -19,7 +19,7 @@ const loginPage = (req, res) => {
   console.log("Navigating to login")
 };
 
-//endpoint => /auth/login?email={email}&password={password}
+//endpoint => /auth/login? email={email}&password={password}
 const loginCallback = AsyncError(async (req, res, next) => {
   // TODO: params email, password
   console.log("Login Callback Initiated - request.params =", req.params);
@@ -41,15 +41,13 @@ const loginCallback = AsyncError(async (req, res, next) => {
 
   connection.execSql(
     requestAllUsers.on("doneInProc", async  (rowCount, more, rows) => {
-        console.log(querySelectUser, ": \n",rows);
+        console.log(querySelectUser, ": \n\nROWS________\n\n",rows);
         if (rowCount >= 1) {
             const isPasswordMatched = await bcrypt.compare(
             password,
             rows[0][3].value
             );
-            if (!isPasswordMatched) {
-            return next(new ErrorController("Invalid Email or Password.", 401));
-        }
+            if (!isPasswordMatched) return next(new ErrorController("Invalid Email or Password.", 401));
       }
     }));
 
@@ -87,11 +85,11 @@ const registerCallback = async (req, res, next) => {
     })
   );
 
-  res.status(200).json({
-    success: true,
-    message: "Register successful",
-    redirectPath: "/login",
-  });
+  // res.status(200).json({
+  //   success: true,
+  //   message: "Register successful",
+  //   redirectPath: "/login",
+  // });
 };
 
 

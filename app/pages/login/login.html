@@ -15,32 +15,32 @@
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet' type="text/css">
     <!-- Global css -->
     <!-- <link href="/styles/auth.css" rel="stylesheet" type="text/stylesheet"> -->
-    
-    <link rel="stylesheet" href="../../static/styles/game.css">
+    <link rel="stylesheet" href="../../static/styles/global.css">
+    <link rel="stylesheet" href="../../static/styles/auth.css">
 
 </head>
 
 <body>
 
     <!-- main -->
-    <div class="main">
+    <main>
         <section class="screen">
             <!-- convert to Form  -->
             <form class="log-in" id="start-screen">
 
-                <label for="input-name">Username:</label>
-                <input type="text" placeholder="Enter your username" maxlength="100" class="input-name" id="input-name">
+                <label for="input-name" class="input-label">Username:</label>
+                <input type="text" placeholder="Enter your username" maxlength="100" id="input-name">
 
-                <label for="input-password">Password:</label>
-                <input type="text" placeholder="Enter your password" maxlength="150" class="input-name" id="input-password">
+                <label for="input-password" class="input-label">Password:</label>
+                <input type="text" placeholder="Enter your password" maxlength="150" id="input-password">
 
                 <button type="button" class="btn login" id="btn-login">Login</button>
                 <button  type="button" class="btn-redirect" id="btn-redirect">Not a user? Register</button>
 
-            </ul>
+            </form>
             <!-- end start screen -->
         </section>
-    </div>
+    </main>
     <!-- end main -->
 
 

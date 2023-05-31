@@ -1,0 +1,137 @@
+button{
+    border-width: 0;
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    font-family: "Inter", sans-serif;
+    /* height: 100vh; */
+    background-color: #1b1b1b;;
+    overflow-x: hidden;
+    user-select: none;
+    background-image:url(../images/bg.png) ;
+}
+
+input {
+    font-family: "Inter", sans-serif;
+    border: 2px solid #1b1b1b;;
+    color: black;
+}
+
+input:hover,
+input:focus {
+    border-color: black;
+}
+
+a {
+    text-decoration: none;
+    color: unset;
+}
+
+ul {
+    list-style-type: none;
+}
+
+ol {
+    list-style-type: none;
+}
+
+li{
+    align-items: start;
+    display:grid;
+    width: 100%;
+}
+
+label{
+    font-size: 12pt;
+    font-weight: bold;
+    width: 100%;
+}
+
+main {
+    /* height: 100vh; */
+    padding-top: 2%;
+    display: grid;
+    place-items: center;
+}
+
+.screen {
+    position: relative;
+    align-self:center;
+    overflow: hidden;
+    height: 80vh;
+    width: 35%;
+    background-color: white;
+    border-radius: 5px;
+    margin-top: 3vh;
+    box-shadow: inset 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.btn {
+    height: 80px;
+    width: 100%;
+    margin-top: 10px;
+    background-color: white;
+    color: black;
+    border-radius: 5px;
+    display: grid;
+    place-items: center;
+    transition: width 0.3s ease-in-out;
+    overflow: hidden;
+    font-size: 16pt;
+    cursor: pointer;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+input {
+    height: 80px;
+    width: 100%;
+    border-radius: 5px;
+    border-width: 0px;
+    color: black;
+    background-color:white;
+    padding: 20px;
+    font-size: 12pt;
+    text-align: center;
+    box-shadow: inset 0 4px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.input-err {
+    border-color: red;
+}
+
+
+@media only screen and (max-width: 950px) {
+
+    main {
+        height: 100vh;
+    }
+
+    .screen{
+        width: 65%;
+    }
+    .btn{
+        width:100%
+    }
+
+    label {
+        font-size: 10pt;
+    }
+    input {
+        font-size: 12pt;
+    }
+}
+
+@media only screen and (max-width: 550px) {
+
+    .screen{
+        width: 80%;
+    }
+
+}

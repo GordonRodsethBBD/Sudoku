@@ -14,11 +14,11 @@ const gameRoutes = require("./routes/gameRoute");
 const dbInitRoutes = require("./routes/dbInitRoute");
 const dbRoutes = require("./routes/dbRoute");
 
-const { ErrorController, AsyncError } = require('./controllers/ErrorController');
+// const { ErrorController, AsyncError } = require('./controllers/ErrorController');
 
 
 app.use(express.static("static"));
-app.use(setNoSniffHeader)
+// app.use(setNoSniffHeader)
 app.use(morgan('tiny'));
 app.use(express.urlencoded({extended: true}))
 app.use(express.json())
@@ -28,8 +28,8 @@ app.use(session({
     cookie: { maxAge: 259200000 }, // 3 days
     resave: false
 }));
-app.use(bodyParser.urlencoded({ extended: false }))
-app.use(bodyParser.json())
+// app.use(bodyParser.urlencoded({ extended: false }))
+// app.use(bodyParser.json())
 app.use(cookieParser())
 app.use(express.static('app/static'))
 

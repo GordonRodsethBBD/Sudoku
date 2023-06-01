@@ -370,11 +370,23 @@ document.querySelector('#btn-continue').addEventListener('click', () => {
 });
 
 document.querySelector('#btn-pause').addEventListener('click', () => {
+    if(pause) {
+        pause_screen.classList.remove('active');
+        pause = false;
+        return
+    }
     pause_screen.classList.add('active');
     pause = true;
+
+    // how to send request from server to change HTML page? I know how to do this with HTML forms
 });
 
 document.querySelector('#btn-resume').addEventListener('click', () => {
+    if(!pause) {
+        pause_screen.classList.add('active');
+        pause = true;
+        return
+    }
     pause_screen.classList.remove('active');
     pause = false;
 });

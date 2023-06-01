@@ -24,6 +24,7 @@ async function insertGame(username, levelId, isDone, duration, board) {
       throw new Error(`User '${username}' not found.`);
     }
 
+
     const userId = userIdResult[0].id;
 
     const query = `INSERT INTO dbo.tblGames (userId, levelId, isDone, duration, board)
@@ -39,11 +40,15 @@ async function insertGame(username, levelId, isDone, duration, board) {
 
 async function getUserGame(username) {
   try {
-    const userIdQuery = `SELECT id FROM dbo.tblUsers WHERE username = '${username}'`;
+    // const {email, password} = req.body;
+    const email = 'johndoe@example.com';
+    // inner join table `join tableUsers with tableGames where user.email = $email`
+    const userIdQuery = `SELECT id FROM dbo.tblUsers WHERE email = '${email}'`;
+
     const userIdResult = await dbUtils.executeQuery(userIdQuery);
 
     if (!userIdResult || userIdResult.length === 0) {
-      throw new Error(`User '${username}' not found.`);
+      throw new Error(`User '${email}' not found.`);
     }
 
     const userId = userIdResult[0].id;
@@ -117,7 +122,7 @@ async function getLeaderboard() {
         ORDER BY g.duration ASC
       `;
 
-      const result = await DB.executeQuery(query);
+      const result = await dbUtils.executeQuery(query);
 
       const leaderboard = result.map((row) => ({
         username: row.username,
@@ -139,7 +144,7 @@ async function getUsernameByEmail(email) {
         WHERE email = '${email}'
       `;
 
-      const result = await DB.executeQuery(query);
+      const result = await dbUtils.executeQuery(query);
       if (result.length > 0) {
         return result[0].username;
       } else {

@@ -1,8 +1,9 @@
 const Request = require("tedious").Request;
-const {ErrorController, AsyncError} = require("../controllers/ErrorController");
+const {ErrorController, AsyncError} = require("./ErrorController");
 const bcrypt = require("bcryptjs");
 const path = require("path");
 const { connection } = require("../services/dbConnection");
+const { getUserGame, getUsernameByEmail } = require("./logicController");
 
 
 // endpoint => /register
@@ -21,44 +22,46 @@ const loginPage = (req, res) => {
 
 //endpoint => /auth/login? email={email}&password={password}
 const loginCallback = AsyncError(async (req, res, next) => {
-  // TODO: params email, password
-  console.log("Login Callback Initiated - request.params =", req.params);
-  console.log("Login Callback Initiated - request.body =", req.body);
   const { email, password } = req.body;
+
+  const username = await getUsernameByEmail(email);
+
+
 
   if (!email || !password) return next(new ErrorController("Missing required fields.", 400));
 
-  const querySelectUser = `SELECT * FROM tblUsers WHERE email = '${email}'`;  // TODO: Add Query Sanitization
+  session = req.session;
+  session.email = email;
+
+  res.status(200).json({ username });
+
+  // const querySelectUser = `SELECT * FROM tblUsers WHERE email = '${email}'`;
 
 
-  const requestAllUsers = new Request(
-    querySelectUser,
-    (err, rowCount, rows) => {
-      if (err) return next(new ErrorController(err, 500));
-      if (rowCount == 0) return next(loginPage);
-    }
-  );
+  // const requestAllUsers = new Request(
+    //   querySelectUser,
+    //   (err, rowCount, rows) => {
+      //     if (err) return next(new ErrorController(err, 500));
+      //     if (rowCount == 0) return next(loginPage);
+      //   }
+      // );
 
-  connection.execSql(
-    requestAllUsers.on("doneInProc", async  (rowCount, more, rows) => {
-        console.log(querySelectUser, ": \n\nROWS________\n\n",rows);
-        if (rowCount >= 1) {
-            const isPasswordMatched = await bcrypt.compare(
-            password,
-            rows[0][3].value
-            );
-            if (!isPasswordMatched) return next(new ErrorController("Invalid Email or Password.", 401));
-      }
-    }));
-
-    session = req.session;
-    session.email = email;
-
-    res.sendFile("register.html", { root: path.join(__dirname, "../pages/register") });
-    res.status(200).json({
-      success: true,
-      message: 'Login Successful',
-    });
+      // connection.execSql(
+        //   requestAllUsers.on("doneInProc", async  (rowCount, more, rows) => {
+          //       console.log(querySelectUser, ": \n\nROWS________\n\n",rows);
+          //       if (rowCount >= 1) {
+            //           const isPasswordMatched = await bcrypt.compare(
+              //           password,
+              //           rows[0][3].value
+              //           );
+              //           if (!isPasswordMatched) return next(new ErrorController("Invalid Email or Password.", 401));
+              //     }
+              //   }));
+    // res.sendFile("register.html", { root: path.join(__dirname, "../pages/register") });
+    // res.status(200).json({
+    //   success: true,
+    //   message: 'Login Successful',
+    // });
 
 });
 

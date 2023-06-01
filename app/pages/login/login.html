@@ -28,14 +28,38 @@
             <!-- convert to Form  -->
             <form class="log-in" id="start-screen" action="/login" method="post">
 
-                <label for="input-name" class="input-label">Username:</label>
-                <input type="text" name="email" placeholder="Enter your username" maxlength="100" id="input-name">
+                <label for="input-name" class="input-label">Email:</label>
+                <input
+                    type="type"
+                    name="email"
+                    title="Please enter a valid email address"
+                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                    placeholder="Enter your username"
+                    maxlength="100"
+                    id="input-name" required>
 
-                <label for="input-password" class="input-label">Password:</label>
-                <input type="text" name="password" placeholder="Enter your password" maxlength="150" id="input-password">
+                <label
+                    for="input-password"
+                    class="input-label">Password:</label>
+                <input
+                    type="password"
+                    name="password"
+                    title="Please enter a valid password."
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8}$"
+                    placeholder="Enter your password"
+                    minlength=""
+                    maxlength="150"
+                    id="input-password" required>
 
-                <button type="submit" class="btn login" id="btn-login">Login</button>
-                <a href="/register"><button  type="button" class="btn-redirect" id="btn-redirect">Not a user? Register</button>
+                <button
+                    type="submit"
+                    class="btn login"
+                    id="btn-login">Login</button>
+                <a
+                    href="/register"><button
+                        type="button"
+                        class="btn-redirect"
+                        id="btn-redirect">Not a user? Register</button>
 
             </form>
             <!-- end start screen -->

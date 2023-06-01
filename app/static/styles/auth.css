@@ -3,9 +3,10 @@ form{
     margin-top: 10%;
     padding-left: 25%;
     padding-right: 25%;
-    padding-top: 15%;
+    /* padding-top: 15%; */
     padding-bottom: 15%;
     height: 100%;
+    min-height: fit-content;
     align-items: center;
 }
 

@@ -26,22 +26,54 @@
     <main>
         <section class="screen">
             <!-- start screen -->
-            <form class="register" id="start-screen">
+            <form class="register" id="start-screen" action="/register" method="post">
 
                     <label for="input-name">Username:</label>
-                    <input type="text" name="username" placeholder="Enter a username" maxlength="100"  id="input-name">
+                    <input
+                        type="text"
+                        name="username"
+                        title="Must only contain alphanumeric characters and _, -,  and ."
+                        pattern="^[a-zA-Z0-9_.-]{3,20}$"
+                        placeholder="Enter a username"
+                        minlength="3"
+                        maxlength="100"
+                        id="input-name" required>
 
                     <label for="input-email">Email:</label>
-                    <input type="email" name="email" placeholder="Your email address" maxlength="150"  id="input-email">
+                    <input
+                        type="email"
+                        name="email"
+                        title="Enter a valid email address less than 150 characters long"
+                        pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+                        placeholder="Your email address"
+                        minlength="5"
+                        maxlength="150"
+                        id="input-email" required>
 
                     <label for="input-password">Password:</label>
-                    <input type="text" name="password" placeholder="Password" maxlength="11" id="input-password">
+                    <input
+                        type="password"
+                        name="password"
+                        title="Must contain 8 characters, upper and lower case letters, a digit and a special character"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,255}$"
+                        placeholder="Password"
+                        minlength="8"
+                        maxlength="100"
+                        id="input-password" required>
 
                     <label for="input-confirm-password">Confirm Password:</label>
-                    <input type="text" name="password_confirm" placeholder="Confirm Password" maxlength="11"  id="input-confirm-password">
+                    <input
+                        type="password"
+                        name="password_confirm"
+                        title="Must contain 8 characters, upper and lower case letters, a digit and a special character"
+                        pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,255}$"
+                        placeholder="Confirm Password"
+                        minlength="8"
+                        maxlength="100"
+                        id="input-confirm-password" required>
 
                     <button type="submit" class="btn" id="btn-regiser">Register</button>
-                <a  type="button" href="/login" class="btn-redirect" id="btn-loginRedirect">Have an account? Login</a>
+                    <a type="button" href="/login" class="btn-redirect" id="btn-loginRedirect">Have an account? Login</a>
 
 
             </form>

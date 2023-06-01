@@ -26,7 +26,7 @@ async function insertGame(username, levelId, isDone, duration, board) {
 
     const userId = userIdResult[0].id;
 
-    const query = `INSERT INTO dbo.tblGames (userId, levelId, isDone, duration, board) 
+    const query = `INSERT INTO dbo.tblGames (userId, levelId, isDone, duration, board)
                    VALUES (${userId}, ${levelId}, ${isDone}, ${duration}, '${board}')`;
 
     await dbUtils.executeQuery(query);
@@ -94,15 +94,15 @@ function formatDuration(duration) {
     const seconds = Math.floor(duration / 1000);
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
-  
+
     const formattedSeconds = seconds % 60;
     const formattedMinutes = minutes % 60;
     const formattedHours = hours % 24;
-  
+
     const formattedHoursStr = formattedHours < 10 ? `0${formattedHours}` : formattedHours;
     const formattedMinutesStr = formattedMinutes < 10 ? `0${formattedMinutes}` : formattedMinutes;
     const formattedSecondsStr = formattedSeconds < 10 ? `0${formattedSeconds}` : formattedSeconds;
-  
+
     return `${formattedHoursStr}:${formattedMinutesStr}:${formattedSecondsStr}`;
 }
 
@@ -116,15 +116,15 @@ async function getLeaderboard() {
         WHERE g.isDone = 1
         ORDER BY g.duration ASC
       `;
-  
+
       const result = await DB.executeQuery(query);
-  
+
       const leaderboard = result.map((row) => ({
         username: row.username,
         duration: formatDuration(row.duration),
         difficulty: row.difficulty,
       }));
-  
+
       return leaderboard;
     } catch (error) {
       console.log('There was an error: ' + error);
@@ -138,7 +138,7 @@ async function getUsernameByEmail(email) {
         FROM dbo.tblUsers
         WHERE email = '${email}'
       `;
-  
+
       const result = await DB.executeQuery(query);
       if (result.length > 0) {
         return result[0].username;
@@ -150,12 +150,12 @@ async function getUsernameByEmail(email) {
     }
 }
 
-module.exports = { 
-    insertGame, 
-    getUserGame, 
-    deleteGame, 
-    fetchDifficulties, 
-    formatDuration, 
-    getLeaderboard, 
+module.exports = {
+    insertGame,
+    getUserGame,
+    deleteGame,
+    fetchDifficulties,
+    formatDuration,
+    getLeaderboard,
     getUsernameByEmail
 };

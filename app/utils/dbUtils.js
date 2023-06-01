@@ -18,9 +18,9 @@ async function executeQuery(sqlQuery) {
   try {
     let result = undefined;
     // Check if the connection pool is already connected
-    if (!pool.connected) 
+    if (!pool.connected)
       await pool.connect();
-      
+
     result = await pool.request().query(sqlQuery);
     console.log(result.recordset);
     return result.recordset;

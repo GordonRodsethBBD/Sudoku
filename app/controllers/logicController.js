@@ -54,7 +54,7 @@ async function getUserGame(username) {
     return userGameResult;
   } catch (error) {
     console.log('There was an error: ' + error);
-    return 'Failed to fetch user game.';
+    return 'Failed to get user game.';
   }
 }
 
@@ -79,14 +79,14 @@ async function deleteGame(username) {
   }
 }
 
-async function fetchDifficulties() {
+async function getDifficulties() {
   try {
     const query = 'SELECT * FROM dbo.tblLevels';
     const difficulties = await dbUtils.executeQuery(query);
     return difficulties;
   } catch (error) {
     console.log('There was an error: ' + error);
-    return 'Failed to fetch difficulties.';
+    return 'Failed to get difficulties.';
   }
 }
 
@@ -154,7 +154,7 @@ module.exports = {
     insertGame,
     getUserGame,
     deleteGame,
-    fetchDifficulties,
+    getDifficulties,
     formatDuration,
     getLeaderboard,
     getUsernameByEmail

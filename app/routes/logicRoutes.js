@@ -5,7 +5,7 @@ const {
     insertGame,
     getUserGame,
     deleteGame,
-    fetchDifficulties,
+    getDifficulties,
     formatDuration,
     getLeaderboard,
     getUsernameByEmail
@@ -15,13 +15,14 @@ const {
 router.get('/insertGame', insertGame);
 router.get('/getUserGame', getUserGame);
 router.get('/deleteGame', deleteGame);
-router.get('/fetchDifficulties', fetchDifficulties);
+router.get('/getDifficulties', getDifficulties);
 router.get('/formatDuration', formatDuration);
 router.get('/getLeaderboard', getLeaderboard);
 router.get('/getUsernameByEmail', getUsernameByEmail);
 
+router.post('/insertGame', insertGame);
+router.post('/deleteGame', deleteGame);
+router.post('/getDifficulties', getDifficulties);
+router.post('/formatDuration', formatDuration);
 
 module.exports = router;
-
-
-const =

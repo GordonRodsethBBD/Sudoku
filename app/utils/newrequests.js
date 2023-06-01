@@ -149,7 +149,7 @@ async function getUsernameByEmail(email) {
       console.log('There was an error: ' + error);
     }
 }
-  
+
 module.exports = { 
     insertGame, 
     getUserGame, 

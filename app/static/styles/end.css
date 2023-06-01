@@ -1,0 +1,51 @@
+.result-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    display: none;
+}
+
+#easy-leaderboard,
+#intermediate-leaderboard,
+#expert-leaderboard {
+  margin: 20px auto;
+  width: 300px;
+}
+
+#easy-leaderboard div,
+#intermediate-leaderboard div,
+#expert-leaderboard div {
+padding: 5px;
+border-bottom: 1px solid white;
+}
+
+.result-screen.active {
+    display: flex;
+}
+
+.result-screen .congrate {
+    font-size: 18pt;
+    color:black;
+}
+
+.result-screen .info {
+    color: black;
+    font-size: 16pt;
+}
+
+#result-time {
+    color: black;
+    font-size: 24pt;
+}
+
+@media only screen and (max-width: 850px) {
+    .btn {
+        height: 50px;
+    }
+}

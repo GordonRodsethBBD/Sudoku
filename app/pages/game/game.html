@@ -7,7 +7,7 @@
     <!-- mobile status bar color -->
     <meta name="theme-color" content="#fff">
     <title>Sudoku</title>
-    <link rel="shortcut icon" href="./static/images/icon.png" type="image/x-icon">
+    <link rel="shortcut icon" href="/images/icon.png" type="image/x-icon">
     <!-- google font -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,35 +15,39 @@
     <!-- box icons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- app css -->
-    <link href="/styles/game.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/styles/global.css" type="text/css">
+    <link rel="stylesheet" href="/styles/start.css" type="text/css">
+    <link rel="stylesheet" href="/styles/pause.css" type="text/css">
+    <link rel="stylesheet" href="/styles/game.css" type="text/css">
+    <link rel="stylesheet" href="/styles/end.css" type="text/css">
 
 </head>
 
 <body>
 
     <!-- main -->
-    <div class="main">
+    <main>
         <section class="screen">
             <!-- start screen -->
-            <form class="start-screen active" id="start-screen">
-                <div class="start-screen-item">
-                    <label>Player Name:</label>
-                    <input type="text" placeholder="Your name" maxlength="11" class="input-name" id="input-name">
-                </div>
+            <ul class="start-screen active" id="start-screen">
+                <li class="start-screen-item">
+                    <!-- <label>Player Name:</label> -->
+                    <p type="text" placeholder="Your name" maxlength="11" class="input-name" id="username">{Player Name}</p>
+                </li>
 
-                <div class="start-screen-item">
+                <li class="start-screen-item">
                     <label>Difficulty:</label>
                     <button  type="button" class="btn" id="btn-level">
                         Easy
                     </button>
-                </div>
+                </li>
 
-                <div class="start-screen-item start-screen-buttons">
+                <li class="start-screen-item start-screen-buttons">
                     <button type="button" class="btn" id="btn-continue">Continue</button>
                     <button  type="button" class="btn" id="btn-play">New game</button>
-                </div>
+                </li>
 
-            </form>
+            </ul>
             <!-- end start screen -->
 
             <!-- game screen -->
@@ -52,7 +56,7 @@
                 <ul class="main-game-info">
                     <li class="main-game-info-box main-game-info-name">
                         <label>Player Name:</label>
-                        <p id="player-name">Enter name</p>
+                        <p id="player-name">tuat</p>
                     </li>
                     <li class="main-game-info-box main-game-info-level">
                         <label>Difficulty:</label>
@@ -185,7 +189,7 @@
 
                 <article class="main-game-info-box main-game-info-time">
                     <p id="game-time">10:20</p>
-                    <button  type="button" class="pause-btn" id="btn-pause">
+                    <button  type="button" class="pause-btn" id="btn-pause" title="pause-btn">
                         <i class="bx bx-pause"></i>
                     </button>
                 </article>
@@ -235,7 +239,7 @@
             </section>
             <!-- end result screen -->
         </section>
-    </div>
+    </main>
     <!-- end main -->
 
 

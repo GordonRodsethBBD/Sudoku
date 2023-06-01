@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -16,41 +15,41 @@
     <!-- box icons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
     <!-- app css -->
-    <!-- <link rel="stylesheet" href="/styles/auth.css"> -->
+    <link rel="stylesheet" href="/styles/global.css"   type="text/css">
+    <link rel="stylesheet" href="/styles/auth.css"   type="text/css">
+
 </head>
 
 <body>
-    <main class="main">
+
+    <!-- main -->
+    <main>
         <section class="screen">
-            <form class="start-screen active" id="start-screen" action="/register" method="post">
-                <div class="start-screen-item">
+            <!-- start screen -->
+            <form class="register" id="start-screen">
+
                     <label for="input-name">Username:</label>
-                    <input type="text" name="username" placeholder="Enter a username" maxlength="100" class="input-name" id="input-name" required>
-                </div>
+                    <input type="text" name="username" placeholder="Enter a username" maxlength="100"  id="input-name">
 
-                <div class="start-screen-item">
                     <label for="input-email">Email:</label>
-                    <input type="email" name="email" placeholder="Your email address" maxlength="150" class="input-name" id="input-email" required>
-                </div>
+                    <input type="email" name="email" placeholder="Your email address" maxlength="150"  id="input-email">
 
-                <div class="start-screen-item">
                     <label for="input-password">Password:</label>
-                    <input type="text" name="password" placeholder="Your name" maxlength="100" class="input-name" id="input-password" required>
-                </div>
+                    <input type="text" name="password" placeholder="Password" maxlength="11" id="input-password">
 
-                <div class="start-screen-item">
-                    <label for="confirm-password">Confirm Password:</label>
-                    <input type="text" name="password_confirm" placeholder="Your name" maxlength="100" class="input-name" id="input-confirm-password" required>
-                </div>
+                    <label for="input-confirm-password">Confirm Password:</label>
+                    <input type="text" name="password_confirm" placeholder="Confirm Password" maxlength="11"  id="input-confirm-password">
 
-                <div class="start-screen-item start-screen-buttons">
-                    <button type="submit" class="btn" id="btn-registerCall">Register</button>
-                    <button  href="/login" class="btn" id="btn-loginRedirect">Have an account? Login</button>
-                </div>
+                    <button type="submit" class="btn" id="btn-regiser">Register</button>
+                <a  type="button" href="/login" class="btn-redirect" id="btn-loginRedirect">Have an account? Login</a>
+
 
             </form>
+            <!-- end start screen -->
         </section>
     </main>
+    <!-- end main -->
+
     <!-- <script src="/scripts/constant.js"></script> -->
 </body>
 

@@ -14,35 +14,33 @@
     <!-- box icons -->
     <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet' type="text/css">
     <!-- Global css -->
-    <!-- <link rel="stylesheet" href="/styles/auth.css"> -->
+    <!-- <link href="/styles/auth.css" rel="stylesheet" type="text/css"> -->
+    <link rel="stylesheet" href="/styles/global.css"  type="text/css">
+    <link rel="stylesheet" href="/styles/auth.css"  type="text/css">
 
 </head>
 
 <body>
 
     <!-- main -->
-    <div class="main">
+    <main>
         <section class="screen">
-            <section class="screen">
-                <form class="start-screen active" id="start-screen" action="/login" method="post">
-                    <div class="start-screen-item">
-                        <label for="input-email">Email:</label>
-                        <input type="email" name="email" placeholder="Your email address" maxlength="150" class="input-name" id="input-email">
-                    </div>
+            <!-- convert to Form  -->
+            <form class="log-in" id="start-screen" action="/login" method="post">
 
-                    <div class="start-screen-item">
-                        <label for="input-password">Password:</label>
-                        <input type="text" name="password" placeholder="Your name" maxlength="100" class="input-name" id="input-password">
-                    </div>
+                <label for="input-name" class="input-label">Username:</label>
+                <input type="text" name="email" placeholder="Enter your username" maxlength="100" id="input-name">
 
-                    <div class="start-screen-item start-screen-buttons">
-                        <button type="submit" class="btn" id="btn-loginCall">Login</button>
-                        <a  href="/register" class="btn" id="btn-loginRedirect">Register an account!</a>
-                    </div>
+                <label for="input-password" class="input-label">Password:</label>
+                <input type="text" name="password" placeholder="Enter your password" maxlength="150" id="input-password">
 
-                </form>
+                <button type="submit" class="btn login" id="btn-login">Login</button>
+                <a href="/register"><button  type="button" class="btn-redirect" id="btn-redirect">Not a user? Register</button>
+
+            </form>
+            <!-- end start screen -->
         </section>
-    </div>
+    </main>
     <!-- end main -->
 
 

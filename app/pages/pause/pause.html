@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#fff">
+    <title>Login</title>
+    <link rel="shortcut icon" href="/images/icon.png" type="image/x-icon">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- box icons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet' type="text/css">
+    <!-- Global css -->
+    <!-- <link href="/styles/auth.css" rel="stylesheet" type="text/css"> -->
+    <link rel="stylesheet" href="/styles/global.css"  type="text/css">
+    <link rel="stylesheet" href="/styles/auth.css"  type="text/css">
+
+</head>
+
+<body>
+
+    <!-- main -->
+    <main id="main" class="main">
+        <section class="screen">
+            <!-- convert to Form  -->
+            <form class="log-in" id="start-screen" action="/login" method="post">
+
+                <label for="input-name" class="input-label">Email:</label>
+                <input
+                    type="type"
+                    name="email"
+                    title="Please enter a valid email address."
+                    pattern="^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,345}$"
+                    placeholder="Enter your username"
+                    maxlength="345"
+                    id="input-name" required>
+
+                <label
+                    for="input-password"
+                    class="input-label">Password:</label>
+                <input
+                    type="password"
+                    name="password"
+                    title="Please enter a valid password."
+                    pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8}$"
+                    placeholder="Enter your password"
+                    minlength=""
+                    maxlength="150"
+                    id="input-password" required>
+
+                <button
+                    type="submit"
+                    class="btn login"
+                    id="btn-login">Login</button>
+                <a
+                    href="/register"><button
+                        type="button"
+                        class="btn-redirect"
+                        id="btn-redirect">Not a user? Register</button>
+
+            </form>
+            <!-- end start screen -->
+        </section>
+    </main>
+    <!-- end main -->
+
+
+</body>
+
+</html>

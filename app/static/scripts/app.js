@@ -33,7 +33,7 @@ let seconds = 0;
 
 let su = undefined;
 let su_answer = undefined;
-
+localStorage.setItem('player_name', 'Unknown');
 let selected_cell = -1;
 
 // --------

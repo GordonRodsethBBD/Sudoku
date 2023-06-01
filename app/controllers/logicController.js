@@ -1,6 +1,6 @@
 const sql = require('mssql');
 
-const dbUtils = require('./dbUtils');
+const dbUtils = require('../utils/dbUtils');
 
 const config = {
   user: 'SudokuGame',

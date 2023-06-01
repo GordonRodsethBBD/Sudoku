@@ -13,6 +13,7 @@ const authRoutes = require("./routes/authRoute");
 const gameRoutes = require("./routes/gameRoute");
 const dbInitRoutes = require("./routes/dbInitRoute");
 const dbRoutes = require("./routes/dbRoute");
+const logicRoutes = require("./routes/logicRoute");
 
 // const { ErrorController, AsyncError } = require('./controllers/ErrorController');
 
@@ -39,6 +40,7 @@ app.use('/', authRoutes);
 app.use('/game', gameRoutes);
 app.use('/db', dbRoutes);
 app.use('/admin', dbInitRoutes);
+app.use('/logic', logicRoutes);
 
 // app.use(ErrorController);
 

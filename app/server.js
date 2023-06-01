@@ -7,8 +7,8 @@ const { connectToDatabase, connection } = require("./services/dbConnection");
 
 // const {tests} = require("./controllers/initDBController");
 
-const authRoutes = require("./routes/authRoute");
-const gameRoutes = require("./routes/gameRoute");
+// const authRoutes = require("./routes/authRoute");
+// const gameRoutes = require("./routes/gameRoute");
 
 
 process.on("uncaughtException", (err) => {

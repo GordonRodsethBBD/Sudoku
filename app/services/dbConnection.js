@@ -2,12 +2,12 @@ const { Connection, Request, TYPES } = require('tedious');
 
 
 const config = {
-    server: 'sudoku-game.database.windows.net',
+    server: 'sudokugame.database.windows.net',
     authentication: {
         type: 'default',
         options: {
-            userName: 'SudokuGame',
-            password: 'BlackScreen#123',
+            userName: 'shagan',
+            password: 'Password1!',
         },
     },
     options: {
